@@ -1,0 +1,20 @@
+num_envs: 300
+num_eval_envs: 32
+lr: 0.0003
+max_it: 1000
+max_grad_norm: 0.3
+seed: 0
+system_config: smpl
+demo_replay_mode: threshold
+threshold: 0.2
+normalize_observations: True
+ep_len: 60
+ep_len_eval: 60
+obs_type: target_state
+use_lr_scheduler: True
+reward_scaling: 0.02
+rot_weight: 0.5
+vel_weight: 0.01
+ang_weight: 0.01
+
+ref: data/demo_aist/gBR_sBM_cAll_d04_mBR0_ch01.npy
