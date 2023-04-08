@@ -82,12 +82,6 @@ If you find our work useful for your research, please consider citing the paper:
 ## Acknowledgment
 - Differentiable physics simulation is done by [Brax](https://github.com/google/brax).
 - Early version of the code is heavily based on [Imitation Learning via Differentiable Physics (ILD)](https://github.com/sail-sg/ILD).   
-- Motion files are borrowed from:
-  - [DeepMimic](https://github.com/xbpeng/DeepMimic)
-  - [ASE](https://github.com/nv-tlabs/ASE)
-  - [AMASS](https://amass.is.tue.mpg.de/)
-  - [AIST++](https://google.github.io/aistplusplus_dataset/factsfigures.html)
-- Characters are borrowed from:
-  - [DeepMimic](https://github.com/xbpeng/DeepMimic)
-  - [ASE](https://github.com/nv-tlabs/ASE)
+- Motion files are borrowed from [DeepMimic](https://github.com/xbpeng/DeepMimic), [ASE](https://github.com/nv-tlabs/ASE), [AMASS](https://amass.is.tue.mpg.de/), and [AIST++](https://google.github.io/aistplusplus_dataset/factsfigures.html).
+- Characters are borrowed from [DeepMimic](https://github.com/xbpeng/DeepMimic) and [ASE](https://github.com/nv-tlabs/ASE).
 - The work is inspired by valuable insights from [SuperTrack](https://montreal.ubisoft.com/en/supertrack-motion-tracking-for-physically-simulated-characters-using-supervised-learning/) and [Spacetime Bound](https://milkpku.github.io/project/spacetime.html).
