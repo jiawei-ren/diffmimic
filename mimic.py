@@ -1,21 +1,19 @@
-from brax import envs
 import functools
-import diffmimic.brax_lib.agent_apg as apg
 import numpy as np
 import jax.numpy as jnp
-from absl import flags, app, logging
+from absl import flags, app
 import yaml
-import os
-
+from brax import envs
+from brax.io import metrics
+from brax.training.agents.apg import networks as apg_networks
 from diffmimic.utils import AttrDict
 from diffmimic.mimic_envs import register_mimic_env
-from brax.training.agents.apg import networks as apg_networks
+import diffmimic.brax_lib.agent_diffmimic as dmm
 
 register_mimic_env()
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string('config', 'configs/AMP/backflip.yaml', help='Experiment configuration.')
-flags.DEFINE_boolean('tfboard', True, help='Use tensorboard.')
 
 
 def main(argv):
@@ -28,25 +26,6 @@ def main(argv):
             logdir += f"_{v.split('/')[-1].split('.')[0]}"
         else:
             logdir += f"_{v}"
-
-    if FLAGS.tfboard:
-        import tensorflow as tf
-        tf.config.experimental.set_visible_devices([], "GPU")
-        file_writer = tf.summary.create_file_writer(logdir)
-        file_writer.set_as_default()
-
-        def progress_fn(it, metrics):
-            if it % 10 == 0:
-                logging.info(os.path.abspath(logdir))
-            num_steps = it * args.num_envs * (args.ep_len-1)
-            for k in metrics:
-                tf.summary.scalar(k, data=np.array(metrics[k]), step=num_steps)
-    else:
-        def progress_fn(it, metrics):
-            if it % 10 == 0:
-                logging.info(os.path.abspath(logdir))
-
-    model_fn = functools.partial(apg_networks.make_apg_networks, hidden_layer_sizes=(512, 256))
 
     demo_traj = jnp.array(np.load(args.ref))
     demo_len = demo_traj.shape[0]
@@ -71,7 +50,7 @@ def main(argv):
         vel_weight=args.vel_weight,
         ang_weight=args.ang_weight
     )
-        
+
     eval_env = envs.get_environment(
         env_name="humanoid_mimic",
         system_config=args.system_config,
@@ -83,24 +62,25 @@ def main(argv):
         ang_weight=args.ang_weight
     )
 
-    make_inference_fn, params, _ = apg.train(
-        seed=args.seed,
-        environment=train_env,
-        eval_environment=eval_env,
-        episode_length=args.ep_len-1,
-        eval_episode_length=args.ep_len_eval-1,
-        num_envs=args.num_envs,
-        num_eval_envs=args.num_eval_envs,
-        learning_rate=args.lr,
-        num_evals=args.max_it+1,
-        max_gradient_norm=args.max_grad_norm,
-        network_factory=model_fn,
-        normalize_observations=args.normalize_observations,
-        save_dir=logdir,
-        progress_fn=progress_fn,
-        use_linear_scheduler=args.use_lr_scheduler,
-        truncation_length=args.get('truncation_length', None),
-    )
+    with metrics.Writer(logdir) as writer:
+        make_inference_fn, params, _ = dmm.train(
+            seed=args.seed,
+            environment=train_env,
+            eval_environment=eval_env,
+            episode_length=args.ep_len-1,
+            eval_episode_length=args.ep_len_eval-1,
+            num_envs=args.num_envs,
+            num_eval_envs=args.num_eval_envs,
+            learning_rate=args.lr,
+            num_evals=args.max_it+1,
+            max_gradient_norm=args.max_grad_norm,
+            network_factory=functools.partial(apg_networks.make_apg_networks, hidden_layer_sizes=(512, 256)),
+            normalize_observations=args.normalize_observations,
+            save_dir=logdir,
+            progress_fn=writer.write_scalars,
+            use_linear_scheduler=args.use_lr_scheduler,
+            truncation_length=args.get('truncation_length', None),
+        )
 
 
 if __name__ == '__main__':

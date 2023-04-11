@@ -47,15 +47,12 @@ More characters are on the way.
 
 ## Installation
 ```
-conda create -n diffmimic python==3.9
+conda create -n diffmimic python==3.9 -y
 conda activate diffmimic
 
 pip install --upgrade pip
-pip install --upgrade "jax[cuda]==0.3.20" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-pip install brax==0.0.15
-pip install flax==0.6.0
-pip install streamlit  
-pip install tensorflow
+pip install --upgrade "jax[cuda]==0.4.2" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install -r requirements.txt
 ```
 
 ## Get Started

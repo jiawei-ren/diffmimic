@@ -243,7 +243,6 @@ def train(environment: envs.Env,
         training_metrics={})
     best_pose_error = min(metrics['eval/episode_pose_error'], best_pose_error)
     metrics['eval/best_pose_error'] = best_pose_error
-    logging.info(metrics)
     progress_fn(0, metrics)
 
   for it in range(num_evals_after_init):
@@ -263,7 +262,6 @@ def train(environment: envs.Env,
           training_metrics)
       best_pose_error = min(metrics['eval/episode_pose_error'], best_pose_error)
       metrics['eval/best_pose_error'] = best_pose_error
-      logging.info(metrics)
       progress_fn(it + 1, metrics)
       if save_dir is not None:
           params = _unpmap(
