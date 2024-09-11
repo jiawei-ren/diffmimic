@@ -19,8 +19,8 @@ import time
 from typing import Callable, Optional, Tuple
 
 from absl import logging
-from brax import envs
-from brax.envs import wrappers
+from brax.v1 import envs
+from brax.v1.envs import wrappers
 from brax.training import pmap
 from brax.training import types
 from brax.training.acme import running_statistics
@@ -28,7 +28,7 @@ from brax.training.acme import specs
 from brax.training.agents.apg import networks as apg_networks
 from brax.training.types import Params
 from brax.training.types import PRNGKey
-from brax.io import model
+from brax.v1.io import model
 import flax
 import jax
 import jax.numpy as jnp

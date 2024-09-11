@@ -1,4 +1,4 @@
-from brax import envs
+from brax.v1 import envs
 from .humanoid_mimic import HumanoidMimic
 from .humanoid_mimic_train import HumanoidMimicTrain
 from . import pd_controller

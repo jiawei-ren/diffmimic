@@ -3,7 +3,7 @@ from .SWORDSHIELD import _SYSTEM_CONFIG_SWORDSHIELD
 from .SMPL import _SYSTEM_CONFIG_SMPL
 
 from google.protobuf import text_format
-from brax.physics.config_pb2 import Config
+from brax.v1.physics.config_pb2 import Config
 
 
 def get_system_cfg(system_type):

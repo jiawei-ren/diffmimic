@@ -1,7 +1,7 @@
 import numpy as np
 import os
-from brax import envs
-from brax.io import html
+from brax.v1 import envs
+from brax.v1.io import html
 import streamlit.components.v1 as components
 import streamlit as st
 from diffmimic.utils.io import deserialize_qp, serialize_qp
