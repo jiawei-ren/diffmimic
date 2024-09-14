@@ -3,8 +3,9 @@ import numpy as np
 import jax.numpy as jnp
 from absl import flags, app
 import yaml
-from brax import envs
-from brax.io import metrics
+import brax.v1 as brax
+from brax.v1 import envs
+from brax.v1.io import metrics
 from brax.training.agents.apg import networks as apg_networks
 from diffmimic.utils import AttrDict
 from diffmimic.mimic_envs import register_mimic_env

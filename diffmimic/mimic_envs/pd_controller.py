@@ -1,8 +1,8 @@
 from typing import Tuple
 
-from brax import jumpy as jp
-from brax.physics.base import P, QP
-from brax.physics.actuators import Angle
+from brax.v1 import jumpy as jp
+from brax.v1.physics.base import P, QP
+from brax.v1.physics.actuators import Angle
 
 
 def compute_pd_control(target_angles, current_angles, current_velocities, Kp, Kd):

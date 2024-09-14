@@ -1,5 +1,6 @@
-from brax import jumpy as jp
-from brax.envs import env
+import brax.v1 as brax
+from brax.v1 import jumpy as jp
+from brax.v1.envs import env
 from .humanoid_mimic import HumanoidMimic
 from .losses import *
 import jax

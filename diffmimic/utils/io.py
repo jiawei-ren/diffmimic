@@ -1,6 +1,6 @@
-import brax
+import brax.v1 as brax
 import jax.numpy as jnp
-from brax import QP
+from brax.v1 import QP
 
 
 def deserialize_qp(nparray) -> brax.QP:

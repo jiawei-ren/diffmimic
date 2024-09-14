@@ -17,7 +17,7 @@
 import time
 from typing import Callable, Sequence, Tuple
 
-from brax import envs
+from brax.v1 import envs
 from brax.training.types import Metrics
 from brax.training.types import Policy
 from brax.training.types import PolicyParams
@@ -25,7 +25,7 @@ from brax.training.types import PRNGKey
 from brax.training.types import Transition
 import jax
 import numpy as np
-import brax
+import brax.v1 as brax
 
 
 def actor_step(
